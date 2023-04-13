@@ -22,7 +22,7 @@ phases:
   deploy:
     commands:
       - echo Deploying nginx Docker image to AWS CodeDeploy...
-      - aws deploy create-deployment --application-name MyApp --deployment-group-name MyDeploymentGroup --revision revisionType=AppSpecContent,content="{\"ImageUri\": \"011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG\"}"
+      #- aws deploy create-deployment --application-name MyApp --deployment-group-name MyDeploymentGroup --revision revisionType=AppSpecContent,content="{\"ImageUri\": \"011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG\"}"
 
 artifacts:
   files:
