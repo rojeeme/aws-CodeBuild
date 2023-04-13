@@ -3,18 +3,27 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto17
+      docker: 18
+
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
-      - uname -a
+      - echo Logging in to Amazon ECR...
+      - aws --region us-west-2 ecr get-login-password | docker login --username AWS --password-stdin 011974343726.dkr.ecr.us-west-2.amazonaws.com
+      - COMMIT_MSG=$(git log -1 --pretty=%B)
+      - IMAGE_TAG=$(echo $COMMIT_MSG | tr '[:upper:]' '[:lower:]' | tr -cd '[[:alnum:]]._-')
   build:
     commands:
-      - echo Build started on `date`
-      - mvn install
+      - echo Building nginx image...
+      - docker build -t 011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG .
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Pushing nginx image to Amazon ECR...
+      - docker push 011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG
+  deploy:
+    commands:
+      - echo Deploying nginx Docker image to AWS CodeDeploy...
+      - aws deploy create-deployment --application-name MyApp --deployment-group-name MyDeploymentGroup --revision revisionType=AppSpecContent,content="{\"ImageUri\": \"011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG\"}"
+
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
+    - '**/*'
