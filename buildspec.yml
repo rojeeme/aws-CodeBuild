@@ -14,11 +14,12 @@ phases:
   build:
     commands:
       - echo Building nginx image...
-      - docker build -t 011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG .
+      - docker pull ubuntu/nginx
+      - docker tag ubuntu/nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:$IMAGE_TAG
   post_build:
     commands:
       - echo Pushing nginx image to Amazon ECR...
-      - docker push 011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:$IMAGE_TAG
+      - docker push 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:$IMAGE_TAG
   deploy:
     commands:
       - echo Deploying nginx Docker image to AWS CodeDeploy...
