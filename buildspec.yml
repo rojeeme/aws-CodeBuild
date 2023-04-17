@@ -8,6 +8,7 @@ phases:
   pre_build:
     commands:
       - sudo yum install -y systemd-sysv
+      - echo $PATH
       - export PATH=$PATH:/sbin
       - sudo service docker start
       - echo Logging in to Amazon ECR...
