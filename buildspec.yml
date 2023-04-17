@@ -10,7 +10,7 @@ phases:
       - sudo yum install -y systemd-sysv
       - echo $PATH
       - export PATH=$PATH:/sbin
-      - sudo service docker start
+      - sudo systemctl start docker
       - echo Logging in to Amazon ECR...
       - aws --region us-west-2 ecr get-login-password | docker login --username AWS --password-stdin 011974343726.dkr.ecr.us-west-2.amazonaws.com
   build:
