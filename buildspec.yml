@@ -12,6 +12,8 @@ phases:
   build:
     commands:
       - echo Building nginx image...
+      - sudo service docker start
+      - sudo usermod -a -G docker $USER
       - docker pull nginx
       - docker tag nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
   post_build:
