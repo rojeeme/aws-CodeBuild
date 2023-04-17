@@ -20,8 +20,6 @@ phases:
     commands:
       - echo Pushing nginx image to Amazon ECR...
       - docker push 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
-  deploy:
-    commands:
       - echo Deploying nginx Docker image to AWS CodeDeploy...
       #- aws deploy create-deployment --application-name MyApp --deployment-group-name MyDeploymentGroup --revision revisionType=AppSpecContent,content="{\"ImageUri\": \"011974343726.dkr.ecr.us-west-2.amazonaws.com/my-nginx:newest\"}"
 
