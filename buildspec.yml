@@ -12,8 +12,8 @@ phases:
   build:
     commands:
       - echo Building nginx image...
-      - docker build -t nginx .
-      - docker tag nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
+      - /usr/local/bin/docker build -t nginx .
+      - /usr/local/bin/docker tag nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
   post_build:
     commands:
       - echo Pushing nginx image to Amazon ECR...
