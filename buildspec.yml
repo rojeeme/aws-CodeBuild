@@ -3,12 +3,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 23
+      docker: 20
 
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws --region us-west-2 ecr get-login-password | docker login --username AWS --password-stdin 011974343726.dkr.ecr.us-west-2.amazonaws.com
+      - aws --region us-west-2 ecr get-lgin-password | docker login --username AWS --password-stdin 011974343726.dkr.ecr.us-west-2.amazonaws.com
+      - echo "docker info"
+      - which docker 
   build:
     commands:
       - echo Building nginx image...
