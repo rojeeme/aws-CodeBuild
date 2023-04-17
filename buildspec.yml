@@ -12,9 +12,11 @@ phases:
   build:
     commands:
       - echo Building nginx image...
-      - sudo service docker start
-      - sudo usermod -a -G docker $USER
-      - docker pull nginx
+      - echo " FROM nginx:latest 
+        COPY nginx.conf /etc/nginx/nginx.conf
+        EXPOSE 80
+        CMD ["nginx", "-g", "daemon off;"]" > Dockerfile
+      - docker build -t nginx .
       - docker tag nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
   post_build:
     commands:
