@@ -10,13 +10,11 @@ phases:
       - docker info
       - echo Logging in to Amazon ECR...
       - aws --region us-west-2 ecr get-login-password | docker login --username AWS --password-stdin 011974343726.dkr.ecr.us-west-2.amazonaws.com
-      # - COMMIT_MSG=$(git log -1 --pretty=%B)
-      # - IMAGE_TAG=$(echo $COMMIT_MSG | tr '[:upper:]' '[:lower:]' | tr -cd '[[:alnum:]]._-')
   build:
     commands:
       - echo Building nginx image...
-      - docker pull ubuntu/nginx
-      - docker tag ubuntu/nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
+      - docker pull nginx
+      - docker tag nginx:latest 011974343726.dkr.ecr.us-west-2.amazonaws.com/nginx:newest
   post_build:
     commands:
       - echo Pushing nginx image to Amazon ECR...
